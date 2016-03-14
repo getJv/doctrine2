@@ -16,9 +16,17 @@ class User
      * @var string
      */
     protected $name;
+	/**
+     * @OneToMany(targetEntity="Bug", mappedBy="reporter")
+     * @var Bug[]
+     **/	
+	private $reportedBugs = null;
 	
-	protected $reportedBugs;
-    protected $assignedBugs;
+	/**
+     * @OneToMany(targetEntity="Bug", mappedBy="engineer")
+     * @var Bug[]
+     **/
+    private $assignedBugs = null;
 
     public function __construct()
     {
@@ -39,5 +47,14 @@ class User
     public function setName($name)
     {
         $this->name = $name;
+    }
+	public function addReportedBug($bug)
+    {
+        $this->reportedBugs[] = $bug;
+    }
+
+    public function assignedToBug($bug)
+    {
+        $this->assignedBugs[] = $bug;
     }
 }
